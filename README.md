@@ -4,10 +4,10 @@
 Yet another multipurpose WhatsApp bot powered by whatsapp-web.js NPM library.
 ## Features
 
-- Unrestricted GPT-4 chatbot version which can answer you to whatever you ask! (head to FAQ for more info)
-- Create stickers just by quotting messages containing the desired media or giving them
-- Manipulate stickers images to make it so you can get them as custom memes
-- Crashes and bugs free
+- Unrestricted GPT-4 chatbot version which can answer you to whatever you ask! (head to FAQ for more info) 💫
+- Create stickers just by quotting messages containing the desired media or giving them 📱
+- Manipulate stickers images to make it so you can get them as custom memes 😁
+- Crashes and bugs free (main branch) 🐛
 
 ## Installation
 
