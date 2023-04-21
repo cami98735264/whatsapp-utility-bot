@@ -12,6 +12,7 @@ Yet another multipurpose WhatsApp bot powered by whatsapp-web.js NPM library.
 - Resumes a chat by giving the last messages amount to work on 🍞
 - Incorporates an snipe command to retrieves the last deleted message on current group 🔫
 - Mentions everyone on a group (admins only) 🔨
+- Error handling 📌
 - Crashes and bugs free (main branch) 🐛
 
 ## Installation
