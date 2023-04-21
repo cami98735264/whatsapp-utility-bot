@@ -59,7 +59,7 @@ Go to https://bing.com/chat, login with your main account, press Ctrl + Shift + 
 
 It's a completely normal behaviour, note that we are using a reverse engineering method to access Microsoft's Sidney AI, which is their old GPT-4 powered chatbot version (less restricted version), so there may be sometimes a couple errors when fetching and making requests to the pre-used API.
 
-#### Why won't the bot answer to other users or work properly in direct message?
+#### Why won't the bot answer to other users or work properly in direct messages?
 
 The bot was first made to be only group compatible, but owners can bypass this easily, just paste your contact id object to owner field on allowed.json database (you can also console.log authorContact, which is a variable used to get author command's contact, so use it at first and paste its value to the mentioned propertie!)
 
