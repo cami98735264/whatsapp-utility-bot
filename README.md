@@ -70,7 +70,7 @@ As explained above, the bot is intended to be used on dm groups other than direc
 
 #### Which ones are the bot's commands?
 
-- `!sticker [optional:"top text for meme" "bottom text for meme"]` or just `!sticker top text for meme` (creates whatsapp stickers by providing image media, contained on quotted messages or adjunted message files. Optional meme options)
+- `!sticker`, `!sticker [optional:"top text for meme" "bottom text for meme"]` or just `!sticker top text for meme` (creates whatsapp stickers by providing image media, contained on quotted messages or adjunted message files. Optional meme options)
 - `!eval args` (just as it sounds, it is an eval command specifically designed for bot's owner)
 - `!ban-user phone_number` **(i.g !ban-user +1345748234)** (bans an user from using the bot, after adding the user to blacklist, they won't be able to use any of the bot's functions)
 - `!add-group` (adds the current group where command was ran to allowed groups database, this lets the bot be used in there)
