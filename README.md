@@ -69,13 +69,13 @@ As explained above, the bot is intended to be used on dm groups other than direc
 
 #### Which ones are the bot's commands?
 
-- **!sticker** [optional:"top text for meme" "bottom text for meme"] or just **!sticker** top text for meme (creates whatsapp stickers by providing image media, contained on quotted messages or adjunted message files. Optional meme options)
-- **!eval** (just as it sounds, it is an eval command specifically designed for bot's owner)
-- **!ban-user** (bans an user from using the bot, after adding the user to blacklist, they won't be able to use any of the bot's functions)
-- **!add-group** (adds the current group where command was ran to allowed groups database, this lets the bot be used in there)
-- **!snipe** (retrieves the last deleted message data on current group and tells whose the last message and what its content is)
-- **!everyone** (mentions all of the participants in current group)
-- **!resume** (resumes the last given messages amount [it's very likely to crash or simply not work because of fetching that many messages, so be careful with the given amount])
+- `!sticker [optional:"top text for meme" "bottom text for meme"]` or just `!sticker top text for meme` (creates whatsapp stickers by providing image media, contained on quotted messages or adjunted message files. Optional meme options)
+- `!eval args` (just as it sounds, it is an eval command specifically designed for bot's owner)
+- `!ban-user phone_number` **(i.g !ban-user +1345748234)** (bans an user from using the bot, after adding the user to blacklist, they won't be able to use any of the bot's functions)
+- `!add-group` (adds the current group where command was ran to allowed groups database, this lets the bot be used in there)
+- `!snipe` (retrieves the last deleted message data on current group and tells whose the last message and what its content is)
+- `!everyone` (mentions all of the participants in current group)
+- `!resume messages_amount` (resumes the last given messages amount [it's very likely to crash or simply not work because of fetching that many messages, so be careful with the given amount])
 
 
 ## Support
