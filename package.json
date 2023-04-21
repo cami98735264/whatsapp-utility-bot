@@ -1,0 +1,32 @@
+{
+  "name": "whatsapp-utility-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zRghtside/whatsapp-utility-bot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zRghtside/whatsapp-utility-bot/issues"
+  },
+  "homepage": "https://github.com/zRghtside/whatsapp-utility-bot#readme",
+  "type": "module",
+  "dependencies": {
+    "@waylaidwanderer/chatgpt-api": "^1.34.0",
+    "chatgpt-api": "^0.0.6",
+    "data-uri-to-buffer": "^4.0.1",
+    "dotenv": "^16.0.3",
+    "image-data-uri": "^2.0.1",
+    "isomorphic-fetch": "^3.0.0",
+    "jimp": "^0.22.7",
+    "keyv-file": "^0.2.0",
+    "qrcode-terminal": "^0.12.0",
+    "whatsapp-web.js": "^1.19.5"
+  }
+}
