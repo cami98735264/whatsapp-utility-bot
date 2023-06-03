@@ -37,7 +37,8 @@ client.on("message", async message => {
     const conversationsDB = JSON.parse(fs.readFileSync("./messages.json")); // Parse messages.json, which saves conversations id's to be able to answer on the same Bing Chat conversation whenever quotting them back 
     const quotedMessage = message.hasQuotedMsg ? await message.getQuotedMessage() : null
     const amIQuoted = quotedMessage ? (quotedMessage.fromMe ? true : false) : false
-    const authorContact = await message.getContact(); // console.log(authorContact) and paste yours one as owner propertie on allowed.json
+    const authorContact = await message.getContact(); // console.log(authorContact.id) and paste yours one as owner propertie on allowed.json
+    console.log(authorContact.id);
     const chat = await message.getChat(); // Get current chat
     if(message.body.startsWith("!eval")) {
         if(JSON.stringify(authorContact.id) !== JSON.stringify(allowedDB[0].owner)) return message.reply("⚠ - Solo el dueño del bot puede utilizar este comando");
