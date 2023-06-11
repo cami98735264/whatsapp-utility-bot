@@ -53,7 +53,7 @@ client.on("message", async message => {
             return message.reply(`😵 - Ha ocurrido un error inesperado:\n\`\`\`\n${err}\n\`\`\``);
         };
     };
-    if(!chat.isGroup && JSON.stringify(authorContact.id) !== JSON.stringify(allowedDB[0].owner) && allowedDB[1].allowed_users.some(x => JSON.stringify(x) !== JSON.stringify(authorContact.id))) return message.reply("⚠ - Lo siento, pero mi uso solo está destinado para grupos");
+    if(!chat.isGroup && JSON.stringify(authorContact.id) !== JSON.stringify(allowedDB[0].owner) && !allowedDB[1].allowed_users.some(x => JSON.stringify(x) === JSON.stringify(authorContact.id))) return message.reply("⚠ - Lo siento, pero mi uso solo está destinado para grupos");
     // Checks if current chat is actually a group, and looks for owner's condition as author's command to bypass this
     
     if(message.body.toLowerCase().startsWith("!add-group") && JSON.stringify(authorContact.id) === JSON.stringify(allowedDB[0].owner)) {
@@ -241,7 +241,7 @@ client.on("message", async message => {
     }
     }
     else if((await message.getMentions()).some(x => x.isMe) || amIQuoted) {
-        if(!allowedDB[1].allowed_groups.some(x => JSON.stringify(x) === JSON.stringify(chat.id)) && JSON.stringify(authorContact.id) !== JSON.stringify(allowedDB[0].owner) && allowedDB[1].allowed_users.some(x => JSON.stringify(x) !== JSON.stringify(authorContact.id))) return message.reply("⚠ - Lo siento, no se tiene permitido mi uso en este grupo.");
+        if(!allowedDB[1].allowed_groups.some(x => JSON.stringify(x) === JSON.stringify(chat.id)) && !allowedDB[1].allowed_users.some(x => JSON.stringify(x) === JSON.stringify(authorContact.id)) && JSON.stringify(authorContact.id) !== JSON.stringify(allowedDB[0].owner)) return message.reply("⚠ - Lo siento, no se tiene permitido mi uso en este grupo.");
         if(allowedDB[1].banned_users.some(x => JSON.stringify(x) === JSON.stringify(authorContact.id)) && JSON.stringify(authorContact.id) !== JSON.stringify(allowedDB[0].owner)) return message.reply("⚠ - Lo siento, estás baneado de usar este bot.");    
         // Blacklist checks
         
