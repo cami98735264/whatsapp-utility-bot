@@ -40,7 +40,7 @@ client.on("message", async message => {
     const authorContact = await message.getContact(); // console.log(authorContact.id) and paste yours one as owner propertie on allowed.json
     console.log(authorContact.id);
     const chat = await message.getChat(); // Get current chat
-    if(message.body.startsWith("!eval")) {
+    if(message.body.toLowerCase().startsWith("!eval")) {
         if(JSON.stringify(authorContact.id) !== JSON.stringify(allowedDB[0].owner)) return message.reply("⚠ - Solo el dueño del bot puede utilizar este comando");
         // Check if author's message matches with owner's data, otherwise returns an error reply
         
@@ -53,10 +53,10 @@ client.on("message", async message => {
             return message.reply(`😵 - Ha ocurrido un error inesperado:\n\`\`\`\n${err}\n\`\`\``);
         };
     };
-    if(!chat.isGroup && JSON.stringify(authorContact.id) !== JSON.stringify(allowedDB[0].owner)) return message.reply("⚠ - Lo siento, pero mi uso solo está destinado para grupos");
+    if(JSON.stringify(authorContact.id) !== JSON.stringify(allowedDB[0].owner) && allowedDB[1].allowed_users.some(x => JSON.stringify(x) !== JSON.stringify(authorContact.id))) return message.reply("⚠ - Lo siento, pero mi uso solo está destinado para grupos");
     // Checks if current chat is actually a group, and looks for owner's condition as author's command to bypass this
     
-    if(message.body.startsWith("!add-group") && JSON.stringify(authorContact.id) === JSON.stringify(allowedDB[0].owner)) {
+    if(message.body.toLowerCase().startsWith("!add-group") && JSON.stringify(authorContact.id) === JSON.stringify(allowedDB[0].owner)) {
         // Checks if author's command matches with owner's info
         
         if(allowedDB[1].allowed_groups.find(x => JSON.stringify(x) === JSON.stringify(chat.id))) {
@@ -81,7 +81,36 @@ client.on("message", async message => {
             return message.reply(`😵 - Ha ocurrido un error inesperado:\n\`\`\`\n${err}\n\`\`\``);
         }
     }
-    if(message.body.startsWith("!ban-user") && JSON.stringify(authorContact.id) === JSON.stringify(allowedDB[0].owner)) {
+    if(message.body.toLowerCase().startsWith("!add-user") && JSON.stringify(authorContact.id) === JSON.stringify(allowedDB[0].owner)) {
+        // Checks if author's command matches with owner's data
+        const args = message.body.split(" ").slice(1);
+        const foundUser = await client.getNumberId(args.join(" ").replace("+", "").replace(/\s/g, "")).catch(() => null); // Retrieves the found user data in order to add them
+        if(!args.length) return message.reply("⚠ - Necesitas darme el número de alguien a quien añadir");
+        else if(!foundUser) return message.reply("⚠ - Al parecer ese número es inválido o no pertenece a nadie dentro de WhatsApp"); // Returns an error if no user is found
+        else if(allowedDB[1].allowed_users.some((x) => JSON.stringify(x) === JSON.stringify(foundUser))) {
+            // Checks if found user is already on allowed_users database
+            let updatedDB = allowedDB;
+            const elementIndex = allowedDB[1].allowed_users.findIndex(x => x.user === foundUser.user);
+            updatedDB[1].allowed_users.splice(elementIndex, 1);
+            try {
+                fs.writeFileSync("./allowed.json", JSON.stringify(updatedDB));
+                return message.reply("✅ - Este usuario ha sido removido de la base de datos exitosamente");
+            } catch(err) {
+                return message.reply(`😵 - Ha ocurrido un error inesperado:\n\`\`\`\n${err}\n\`\`\``);
+            };
+        }
+        // Add user to database after checking that there was no matching mirrored data
+        let updatedDB = allowedDB;
+        allowedDB[1].allowed_users.push(foundUser);
+        try {
+            fs.writeFileSync("./allowed.json", JSON.stringify(updatedDB));
+            return message.reply("✅ - El nuevo usuario ha sido actualizado a la base de datos con exito");
+        }
+        catch(err) {
+            return message.reply(`😵 - Ha ocurrido un error inesperado:\n\`\`\`\n${err}\n\`\`\``);
+        }
+    }
+    if(message.body.toLowerCase().startsWith("!ban-user") && JSON.stringify(authorContact.id) === JSON.stringify(allowedDB[0].owner)) {
         // Checks if author's command matches with owner's data
         
         const args = message.body.split(" ").slice(1);
@@ -110,7 +139,7 @@ client.on("message", async message => {
             return message.reply(`😵 - Ha ocurrido un error inesperado:\n\`\`\`\n${err}\n\`\`\``);
         };
     };
-    if(message.body.startsWith("!sticker")) {
+    if(message.body.toLowerCase().startsWith("!sticker")) {
         const args = message.body.split(" ").slice(1);
         let matches = args.join(" ").match(/(["'])(?:(?=(\\?))\2.)*?\1/g) || (!args.length ? [] : [args.join(" ")]); // Create a regex match to get every argument inside simple ' ' or double " " so that meme texts are caught
         if(!allowedDB[1].allowed_groups.some(x => JSON.stringify(x) === JSON.stringify(chat.id)) && JSON.stringify(authorContact.id) !== JSON.stringify(allowedDB[0].owner)) return message.reply("⚠ - Lo siento, no se tiene permitido mi uso en este grupo.");
@@ -151,7 +180,7 @@ client.on("message", async message => {
             return message.reply(`😵 - Ha ocurrido un error inesperado:\n\`\`\`\n${err}\n\`\`\``);
         }
     }
-    else if(message.body.startsWith("!everyone")) {
+    else if(message.body.toLowerCase().startsWith("!everyone")) {
         
         // Mention everyone in the current DM group
         if(!chat.participants.some(x => JSON.stringify(x.id) === JSON.stringify(authorContact.id) && x.isAdmin)) return message.reply("⚠ - Este comando solo puede ser utilizado por administradores");
@@ -165,7 +194,7 @@ client.on("message", async message => {
         };
      
     }
-    else if(message.body.startsWith("!snipe")) {
+    else if(message.body.toLowerCase().startsWith("!snipe")) {
         if(!allowedDB[1].allowed_groups.some(x => JSON.stringify(x) === JSON.stringify(chat.id)) && JSON.stringify(authorContact.id) !== JSON.stringify(allowedDB[0].owner)) return message.reply("⚠ - Lo siento, no se tiene permitido mi uso en este grupo.");
         if(allowedDB[1].banned_users.some(x => JSON.stringify(x) === JSON.stringify(authorContact.id)) && JSON.stringify(authorContact.id) !== JSON.stringify(allowedDB[0].owner)) return message.reply("⚠ - Lo siento, estás baneado de usar este bot.");    
         // Regular checks to match with blacklist info
@@ -179,7 +208,7 @@ client.on("message", async message => {
             mentions: [snipedAuthor]
         }) // Send snipe message
     }
-    else if(message.body.startsWith("!resume")) {
+    else if(message.body.toLowerCase().startsWith("!resume")) {
         if(!allowedDB[1].allowed_groups.some(x => JSON.stringify(x) === JSON.stringify(chat.id)) && JSON.stringify(authorContact.id) !== JSON.stringify(allowedDB[0].owner)) return message.reply("⚠ - Lo siento, no se tiene permitido mi uso en este grupo.");
         if(allowedDB[1].banned_users.some(x => JSON.stringify(x) === JSON.stringify(authorContact.id)) && JSON.stringify(authorContact.id) !== JSON.stringify(allowedDB[0].owner)) return message.reply("⚠ - Lo siento, estás baneado de usar este bot.");    
         // Blacklist checks
