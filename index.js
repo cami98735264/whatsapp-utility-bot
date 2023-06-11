@@ -142,7 +142,7 @@ client.on("message", async message => {
     if(message.body.toLowerCase().startsWith("!sticker")) {
         const args = message.body.split(" ").slice(1);
         let matches = args.join(" ").match(/(["'])(?:(?=(\\?))\2.)*?\1/g) || (!args.length ? [] : [args.join(" ")]); // Create a regex match to get every argument inside simple ' ' or double " " so that meme texts are caught
-        if(!allowedDB[1].allowed_groups.some(x => JSON.stringify(x) === JSON.stringify(chat.id)) && JSON.stringify(authorContact.id) !== JSON.stringify(allowedDB[0].owner)) return message.reply("⚠ - Lo siento, no se tiene permitido mi uso en este grupo.");
+        if(!allowedDB[1].allowed_groups.some(x => JSON.stringify(x) === JSON.stringify(chat.id)) && JSON.stringify(authorContact.id) !== JSON.stringify(allowedDB[0].owner) && allowedDB[1].allowed_users.some(x => JSON.stringify(x) !== JSON.stringify(authorContact.id))) return message.reply("⚠ - Lo siento, no se tiene permitido mi uso en este grupo.");
         // Checks if the current group is present on allowed_groups db, otherwise returns this error
         
         if(allowedDB[1].banned_users.some(x => JSON.stringify(x) === JSON.stringify(authorContact.id)) && JSON.stringify(authorContact.id) !== JSON.stringify(allowedDB[0].owner)) return message.reply("⚠ - Lo siento, estás baneado de usar este bot.");    
@@ -209,7 +209,7 @@ client.on("message", async message => {
         }) // Send snipe message
     }
     else if(message.body.toLowerCase().startsWith("!resume")) {
-        if(!allowedDB[1].allowed_groups.some(x => JSON.stringify(x) === JSON.stringify(chat.id)) && JSON.stringify(authorContact.id) !== JSON.stringify(allowedDB[0].owner)) return message.reply("⚠ - Lo siento, no se tiene permitido mi uso en este grupo.");
+        if(!allowedDB[1].allowed_groups.some(x => JSON.stringify(x) === JSON.stringify(chat.id)) && JSON.stringify(authorContact.id) !== JSON.stringify(allowedDB[0].owner) && allowedDB[1].allowed_users.some(x => JSON.stringify(x) !== JSON.stringify(authorContact.id))) return message.reply("⚠ - Lo siento, no se tiene permitido mi uso en este grupo.");
         if(allowedDB[1].banned_users.some(x => JSON.stringify(x) === JSON.stringify(authorContact.id)) && JSON.stringify(authorContact.id) !== JSON.stringify(allowedDB[0].owner)) return message.reply("⚠ - Lo siento, estás baneado de usar este bot.");    
         // Blacklist checks
         
@@ -241,7 +241,7 @@ client.on("message", async message => {
     }
     }
     else if((await message.getMentions()).some(x => x.isMe) || amIQuoted) {
-        if(!allowedDB[1].allowed_groups.some(x => JSON.stringify(x) === JSON.stringify(chat.id)) && JSON.stringify(authorContact.id) !== JSON.stringify(allowedDB[0].owner)) return message.reply("⚠ - Lo siento, no se tiene permitido mi uso en este grupo.");
+        if(!allowedDB[1].allowed_groups.some(x => JSON.stringify(x) === JSON.stringify(chat.id)) && JSON.stringify(authorContact.id) !== JSON.stringify(allowedDB[0].owner) && allowedDB[1].allowed_users.some(x => JSON.stringify(x) !== JSON.stringify(authorContact.id))) return message.reply("⚠ - Lo siento, no se tiene permitido mi uso en este grupo.");
         if(allowedDB[1].banned_users.some(x => JSON.stringify(x) === JSON.stringify(authorContact.id)) && JSON.stringify(authorContact.id) !== JSON.stringify(allowedDB[0].owner)) return message.reply("⚠ - Lo siento, estás baneado de usar este bot.");    
         // Blacklist checks
         
