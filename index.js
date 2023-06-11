@@ -53,7 +53,7 @@ client.on("message", async message => {
             return message.reply(`😵 - Ha ocurrido un error inesperado:\n\`\`\`\n${err}\n\`\`\``);
         };
     };
-    if(JSON.stringify(authorContact.id) !== JSON.stringify(allowedDB[0].owner) && allowedDB[1].allowed_users.some(x => JSON.stringify(x) !== JSON.stringify(authorContact.id))) return message.reply("⚠ - Lo siento, pero mi uso solo está destinado para grupos");
+    if(!chat.isGroup && JSON.stringify(authorContact.id) !== JSON.stringify(allowedDB[0].owner) && allowedDB[1].allowed_users.some(x => JSON.stringify(x) !== JSON.stringify(authorContact.id))) return message.reply("⚠ - Lo siento, pero mi uso solo está destinado para grupos");
     // Checks if current chat is actually a group, and looks for owner's condition as author's command to bypass this
     
     if(message.body.toLowerCase().startsWith("!add-group") && JSON.stringify(authorContact.id) === JSON.stringify(allowedDB[0].owner)) {
